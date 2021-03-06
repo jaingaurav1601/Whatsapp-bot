@@ -53,7 +53,7 @@ module.exports = msgHandler = async (client, message) => {
     const { name, formattedTitle } = chat;
     let pushname = "";
     pushname = sender.pushname || sender.verifiedName;
-    if (pushname == undefined) pushname = config.ownerName;
+    if (pushname == undefined) pushname = "Gaurav";
     if (typeof body === "object" && quotedMsg) body = quotedMsgObj.body;
     if (body && body.startsWith("! ")) body = body[0] + body.slice(2);
     if (caption && caption.startsWith("! "))
@@ -98,6 +98,7 @@ module.exports = msgHandler = async (client, message) => {
     const isBotGroupAdmins = isGroupMsg
       ? groupAdmins.includes(botNumber + "@c.us")
       : false;
+    const ownerNumber = ["7727847642"]
     const isOwner = message.fromMe;
     const isBlocked = blockNumber.includes(sender.id);
     const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false;
@@ -673,7 +674,7 @@ module.exports = msgHandler = async (client, message) => {
       case "!info":
         client.sendLinkWithAutoPreview(
           chatId,
-          "https://github.com/adityaag121/whatsapp-bot",
+          "https://github.com/jaingaurav1601/Whatsapp-bot.git",
           info
         );
         break;
@@ -691,6 +692,8 @@ module.exports = msgHandler = async (client, message) => {
     if (isOwner) {
       switch (command) {
         case "!bot":
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {
           if (!isGroupMsg) return client.reply(chatId, mess.error.Gp, id);
           if (args.length === 1)
             return client.reply(chatId, "Write enable or disable!", id);
@@ -708,7 +711,8 @@ module.exports = msgHandler = async (client, message) => {
             client.reply(chatId, "Bot disabled in this group!", id);
           } else {
             client.reply(chatId, "Write enable or disable!", id);
-          }
+          }          }
+          
           break;
         case "!getses":
           if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
@@ -742,6 +746,8 @@ module.exports = msgHandler = async (client, message) => {
           );
           break;
         case "!cmd":
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {
           let cmd = body.slice(5);
           console.log(cmd);
           await exec(cmd, (err, stdout, stderr) =>
@@ -753,19 +759,34 @@ module.exports = msgHandler = async (client, message) => {
               id
             )
           );
+          }
           break;
         case "!echo":
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {            
           await client.sendText(chatId, body.slice(6));
+          }
           break;
         case "!copy":
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {            
           let text = body.slice(6);
           if (quotedMsg) text = quotedMsg.body;
           console.log(text);
           await exec("echo " + text + " | clip", (err, stdout, stderr) =>
             client.reply(chatId, "copied", id)
           );
+          }
           break;
         case "!bc":
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {         
+          let text = body.slice(6);
+          if (quotedMsg) text = quotedMsg.body;
+          console.log(text);
+          await exec("echo " + text + " | clip", (err, stdout, stderr) =>
+            client.reply(chatId, "copied", id)
+          );
           let msg = body.slice(4);
           const chatz = await client.getAllChatIds();
           for (let ids of chatz) {
@@ -774,9 +795,11 @@ module.exports = msgHandler = async (client, message) => {
               client.sendText(ids, `\n${msg}`);
           }
           client.reply(chatId, "Broadcast Success!", id);
+          }
           break;
         case "!save":
-          const b64 = await decryptMedia(quotedMsgObj);
+          if (!isOwner) return client.reply(chatId, mess.error.Ow, id);
+          else {                      const b64 = await decryptMedia(quotedMsgObj);
           fs.writeFile(
             "C:/Users/DELL/Downloads/" + quotedMsgObj.caption,
             b64,
@@ -791,6 +814,8 @@ module.exports = msgHandler = async (client, message) => {
               }
             }
           );
+          }
+
           break;
       }
     }
