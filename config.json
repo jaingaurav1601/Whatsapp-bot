@@ -1,6 +1,6 @@
 {
-	"ownerName": "Aditya Agrawal",
+	"ownerName": "Gaurav Jain",
 	"removeBgAPIKey": "",
-	"enableInGroups": false,
-	"allowDelete": false
+	"enableInGroups": true,
+	"allowDelete": true
 }

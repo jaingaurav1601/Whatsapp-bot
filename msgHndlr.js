@@ -73,7 +73,7 @@ module.exports = msgHandler = async (client, message) => {
     };
 
     const mess = {
-      wait: "gaand khuja 2 min",
+      wait: "gaandu 2 min ruk",
       error: {
         St:
           "[❗] Write *!sticker* either in the caption of an image/gif or reply to an image/gif with the command.",
@@ -99,7 +99,7 @@ module.exports = msgHandler = async (client, message) => {
       ? groupAdmins.includes(botNumber + "@c.us")
       : false;
     const ownerNumber = ["7727847642"]
-    const isOwner = message.fromMe;
+    const isOwner = ownerNumber.includes(sender.id);
     const isBlocked = blockNumber.includes(sender.id);
     const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false;
     const uaOverride =
